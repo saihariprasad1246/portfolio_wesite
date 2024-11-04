@@ -100,7 +100,7 @@ section {
 #about, #skills, #education, #contact {
     background: #f9f9fc;
     border-top: 4px solid #4a90e2;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding-top: 60px;
     animation: fadeIn 1.2s ease;
 }
@@ -144,8 +144,12 @@ h2 {
 }
 
 /* Social Links Styling */
+.social-links {
+    margin-top: 10px;
+}
+
 .social-links a {
-    margin: 0 10px;
+    margin: 10px 10px;
     text-decoration: none;
     font-size: 1.2em;
     font-weight: bold;
@@ -182,11 +186,11 @@ h2 {
     transform: scale(1.1);
 }
 
-.social-links .leetcode {
+.social-links .hacker_rank {
     background: #ffa116;
 }
 
-.social-links .leetcode:hover {
+.social-links .hacker_rank:hover {
     background: #e69500;
     transform: scale(1.1);
 }
@@ -217,5 +221,25 @@ h2 {
 
     header, .home, section {
         padding: 20px;
+    }
+}
+
+@media (max-width: 790px) {
+    .home {
+        padding-top: 280px;
+    }
+}
+
+@media (min-width: 292px) and (max-width: 415px){
+    .social-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 292px) {
+    .social-links {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
     }
 }
