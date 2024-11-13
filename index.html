@@ -3,75 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Responsive Navbar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        /* Navbar container */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a1a1a;
+            padding: 15px 20px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            position:fixed;
+            width:100%;
+        }
+
+        /* Navbar logo */
+        .logo {
+            font-size: 1.6em;
+            font-weight: 600;
+            color: #f1f1f1;
+            margin-right: auto;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #ff4b5c;
+        }
+
+        /* Navbar links container */
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        /* Navbar links */
+        .navbar-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for links */
+        .navbar-links a:hover {
+            background-color: #333;
+            color: #ff4b5c;
+            transform: scale(1.05);
+        }
+
+        /* Hamburger menu (hidden on desktop) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: #e0e0e0;
+            margin: 4px;
+            transition: 0.4s;
+        }
+
+        /* Mobile styling */
+        @media (max-width: 768px) {
+            /* Hide links in mobile view */
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #1a1a1a;
+                padding: 15px 0;
+                text-align: center;
+            }
+
+            /* Show hamburger icon */
+            .hamburger {
+                display: flex;
+            }
+
+            /* Show links when menu is active */
+            .navbar-links.active {
+                display: flex;
+            }
+        }
+
+        /* About Me Section */
+        .about-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container {
+            width: 300px;
+            height: 250px;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Dark overlay for readability */
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        /* Content styling */
+        .about-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .about-content h2 {
+            font-size: 2.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #ffdd57;
+        }
+
+        .about-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #ddd;
+        }
+
+        /* Download Resume Button */
+        .download-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            font-size: 1em;
+            color: #121212;
+            background-color: #ffdd57;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background-color: #ffcc33;
+            color: #222;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .about-content h2 {
+                font-size: 2em;
+            }
+
+            .about-content p {
+                font-size: 1em;
+            }
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px 0;
+            color: #e0e0e0;
+        }
+
+        /* Central Line */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: #4a90e2;
+            transform: translateX(-50%);
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            width: 50%;
+            padding: 20px 0;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 50%;
+            padding-left: 30px;
+            justify-content: flex-start;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 0;
+            padding-right: 30px;
+            justify-content: flex-end;
+        }
+
+        /* Dot on the central line */
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ffdd57;
+            z-index: 1;
+        }
+
+        /* Card Content */
+        .timeline-card {
+            background-color: #1a1a1a;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            color: #e0e0e0;
+        }
+
+        .timeline-item:hover .timeline-card {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.3em;
+            color: #ffdd57;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item h4 {
+            font-size: 1em;
+            color: #ccc;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            font-size: 0.9em;
+            color: #bbb;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item span {
+            font-size: 0.85em;
+            color: #aaa;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+            }
+
+            .timeline-item:nth-child(odd) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-right: 0;
+            }
+
+            .timeline-item::before {
+                left: 20px;
+            }
+        }
+
+        #education {
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+            background-color: #333;
+        }
+
+/* Skills Section*/
+
+.skills-section {
+            padding: 50px 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        .skills-section h2 {
+            font-size: 2.3em;
+            color: #ffdd57;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* Skills Category Container */
+        .skills-category {
+            margin-bottom: 40px;
+        }
+
+        .skills-category h3 {
+            font-size: 1.8em;
+            color: #ff4b5c;
+            margin-bottom: 20px;
+        }
+
+        /* Skills container */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Skill card */
+        .skill-card {
+            background-color: #222;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s, background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background-color: #333;
+        }
+
+        .skill-card span {
+            font-size: 1em;
+            font-weight: 600;
+            color: #ffdd57;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .skills-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+
+        /* Projects Section */
+        .projects-section {
+            padding: 50px 20px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            text-align: center;
+        }
+
+        .projects-section h2 {
+            font-size: 2.3em;
+            color: #ffdd57;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        /* Project Cards Container */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Project Card */
+        .project-card {
+            background-color: #222;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background-color: #333;
+        }
+
+        /* Project Title */
+        .project-card h3 {
+            font-size: 1.5em;
+            color: #ffdd57;
+            margin-bottom: 10px;
+        }
+
+        /* Project Description */
+        .project-card p {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        /* GitHub Link Button */
+        .github-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 0.9em;
+            color: #222;
+            background-color: #ffdd57;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .github-link:hover {
+            background-color: #ffcc33;
+            color: #121212;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header id="home">
-        <nav>
-            <h1>My Portfolio</h1>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Home Section -->
-    <section class="home">
-        <img src="./Screenshot 2024-10-30 205301.png" alt="Profile Picture">
-        <h2>Hello, I'm a Full-Stack Developer</h2>
-        <p>MERN | Cloud Computing </p>
-        <a href="./saihariprasadresume.pdf" target="_blank" class="resume-btn" download="resume">Download Resume</a>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>I am a passionate web developer proficient in both front-end and back-end development. Currently pursuing my B.Tech in computer science with a strong foundation in various programming languages and web technologies. I'm eager to contribute to dynamic development projects and continuously enhance my skills.</p>
-        <div class="social-links">
-            <a href="https://github.com/saihariprasad1246" target="_blank" class="github">GitHub</a>
-            <a href="https://www.linkedin.com/in/saihariprasad" target="_blank" class="linkedin">LinkedIn</a>
-            <a href="https://leetcode.com/u/SaiHari0306/" target="_blank" class="leetcode">LeetCode</a>
+    <!-- Navbar structure -->
+    <nav class="navbar">
+        <div class="logo">SAI HARI PRASAD ADDAGIRI</div>
+        <ul class="navbar-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+        </ul>
+        <!-- Hamburger menu icon -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+    <section class="about-section" id="about">
+        <div class="about-content">
+            <h2>About Me</h2>
+            <p>Hi, I'm SAI HARI PRASAD, a passionate professional dedicated to delivering excellence in my field. I specialize in MERN full Stack, aiming to make a positive impact through my work.</p>
+            <a href="/saihariprasadresume.pdf" download class="download-btn">Download Resume</a>
+        </div>
+        <div class="image">
+            <div class="image-container">
+                <img src="/portfolio_image.png" alt="my image" />
+            </div>
         </div>
     </section>
+
+    <!--Educational details-->
+
+    <div id="education">
+        <div class="timeline">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <h3>DVR & Dr HS Mic College Of technology, Kanchikacherla</h3>
+                    <h4>Bachelor of Technology</h4>
+                    <p>Year: 2021 - 2025</p>
+                    <span>Percentage: 84%</span>
+                </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <h3>Sri Sarada Junior College, Nuzividu</h3>
+                    <h4>Intermediate</h4>
+                    <p>Year: 2019 - 2021</p>
+                    <span>Percentage: 94%</span>
+                </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="timeline-item">
+                <div class="timeline-card">
+                    <h3>Dr LHR Government High School, Mylavaram</h3>
+                    <h4>SSC</h4>
+                    <p>Year: 2018-2019</p>
+                    <span>Percentage: 90%</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Skills Section -->
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skill-grid">
-            <div>HTML</div><div>CSS</div><div>JavaScript</div>
-            <div>Node.js</div><div>React.js</div><div>Express.js</div>
-            <div>MongoDB</div><div>MySQL</div><div>Java</div><div>Python</div><div>Git</div>
-        </div>
-    </section>
+    <section id="skills" class="skills-section">
+      <h2>Skills</h2>
+      
+      <!-- Languages Known -->
+      <div class="skills-category">
+          <h3>Languages</h3>
+          <div class="skills-container">
+              <div class="skill-card"><span>Java</span></div>
+              <div class="skill-card"><span>Python</span></div>
+              <div class="skill-card"><span>JavaScript</span></div>
+          </div>
+      </div>
 
-    <!-- Education Section -->
-    <section id="education">
-        <h2>Education</h2>
-        <div class="education-details">
-            <p><strong>B.Tech in Information Technology</strong>, MIC College of Technology, 8.4 CGPA</p>
-            <p><strong>Intermediate (2019-2021)</strong>, Sri Sarada Junior College, 940 Marks</p>
-            <p><strong>10th Grade (2018-2019)</strong>, Dr. LHR Government High School, 9.5 CGPA</p>
-        </div>
-    </section>
+      <!-- Tools -->
+      <div class="skills-category">
+          <h3>Tools</h3>
+          <div class="skills-container">
+              <div class="skill-card"><span>Git</span></div>
+              <div class="skill-card"><span>Linux</span></div>
+              <div class="skill-card"><span>Nginx</span></div>
+          </div>
+      </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <a href="mailto:addagirisaihariprasad@gmail.com target="_blank">
-        <p>Email: addagirisaihariprasad@gmail.com</p>
-        </a>
-        <a href="tel:+919392864075"><p>Phone: +91-9392864075</p>
-    </a>
+      <!-- Technologies -->
+      <div class="skills-category">
+          <h3>Technologies</h3>
+          <div class="skills-container">
+              <div class="skill-card"><span>Node.js</span></div>
+              <div class="skill-card"><span>React.js</span></div>
+              <div class="skill-card"><span>Express.js</span></div>
+              <div class="skill-card"><span>MongoDB</span></div>
+              <div class="skill-card"><span>MySQL</span></div>
+          </div>
+      </div>
+  </section>
+
+
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <h2>Projects</h2>
+    <div class="projects-container">
         
-    </section>
+        <!-- Project Card 1 -->
+        <div class="project-card">
+            <h3>Blog Website</h3>
+            <p>This project is a web application that allows users to post their posts and create blogs. It was built with JavaScript, Node.js,ExpressJs,ReactJs and MongoDB.</p>
+            <a href="https://github.com/saihariprasad1246/Blog-website" target="_blank" class="github-link">View on GitHub</a>
+        </div>
 
-    <script src="script.js"></script>
+        <!-- Project Card 2 -->
+        <div class="project-card">
+            <h3>EaseChat</h3>
+            <p>This is a chat application built to create a real time communication with other users. It was built with JavaScript, Node.js,ExpressJs,ReactJs and MongoDB</p>
+            <a href="https://github.com/your-profile/project2" target="_blank" class="github-link">View on GitHub</a>
+        </div>
+
+        <!-- Project Card 3 -->
+      
+        <!-- Add more project cards as needed -->
+
+    </div>
+</section>
+
+    <script>
+        // JavaScript function to toggle menu visibility on mobile
+        function toggleMenu() {
+            const navbarLinks = document.querySelector('.navbar-links');
+            navbarLinks.classList.toggle('active');
+        }
+    </script>
+
 </body>
 </html>
