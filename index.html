@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My portfolio</title>
+    <title>Responsive Navbar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Basic reset */
         * {
@@ -133,7 +134,6 @@
         .image-container {
             width: 300px;
             height: 250px;
-            border-radius:50%;
         }
 
         img {
@@ -481,9 +481,75 @@
             }
         }
 
+/* styles.css */
+
+
+
+.contact-section {
+    text-align: center;
+    background-color: #242424;
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.contact-section h2 {
+    font-size: 2rem;
+    color: #f5f5f5;
+    margin-bottom: 10px;
+}
+
+.contact-section p {
+    font-size: 1rem;
+    color: #bbbbbb;
+    margin-bottom: 20px;
+}
+
+.contact-icons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: #f5f5f5;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+}
+
+.contact-icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Icon-specific colors */
+.contact-icon.email { background-color: #EA4335; }   /* Gmail red */
+.contact-icon.linkedin { background-color: #0077B5; } /* LinkedIn blue */
+.contact-icon.github { background-color: #333333; }   /* GitHub black */
+.contact-icon.phone { background-color: #34A853; }    /* Phone green */
+
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
-<body id="home">
+<body>
 
     <!-- Navbar structure -->
     <nav class="navbar">
@@ -494,6 +560,7 @@
             <li><a href="#education">Education</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
         <!-- Hamburger menu icon -->
         <div class="hamburger" onclick="toggleMenu()">
@@ -506,12 +573,12 @@
         <div class="about-content">
             <h2>About Me</h2>
             <p>Hi, I'm SAI HARI PRASAD, a passionate professional dedicated to delivering excellence in my field. I specialize in MERN full Stack, aiming to make a positive impact through my work.</p>
-            <a href="./saihariprasadresume.pdf" download="resume.pdf" class="download-btn">Download Resume</a>
+            <a href="/saihariprasadresume.pdf" download class="download-btn">Download Resume</a>
         </div>
         <div class="image">
-            
-                <img src="./portfolio_image.png" alt="my image" />
-            
+            <div class="image-container">
+                <img src="/portfolio_image.png" alt="my image" />
+            </div>
         </div>
     </section>
 
@@ -616,6 +683,25 @@
     </div>
 </section>
 
+<!--contact section-->
+<div class="contact-section" id="contact">
+    <h2>Contact Me</h2>
+    <p>Let's connect! Feel free to reach out through any of the platforms below.</p>
+    <div class="contact-icons">
+        <a href="mailto:addagirisaihariprasad@gmail.com" class="contact-icon email" target="_blank" title="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/saihariprasad" class="contact-icon linkedin" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/saihariprasad1246" class="contact-icon github" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="tel:+919392864075" class="contact-icon phone" target="_blank" title="Phone">
+            <i class="fas fa-phone"></i>
+        </a>
+    </div>
+</div>
     <script>
         // JavaScript function to toggle menu visibility on mobile
         function toggleMenu() {
